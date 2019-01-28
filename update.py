@@ -126,15 +126,9 @@ def updateReferences (blobs):
 
 # Main
 
-tagBuf = []
-for tag in scriptLines ('list-tags'):
-    if not db.vers.exists (tag):
-        tagBuf.append (tag)
-
-print ('Found ' + str(len(tagBuf)) + ' new tags')
+tagBuf = ['HEAD']
 
 for tag in tagBuf:
-    print (tag.decode(), end=': ')
     newBlobs = updateBlobIDs (tag)
     print (str(len(newBlobs)) + ' new blobs')
     updateVersions (tag)

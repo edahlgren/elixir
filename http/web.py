@@ -48,7 +48,7 @@ if m:
     if not (project and search ('^[A-Za-z0-9-]+$', project)) \
     or not (version and search ('^[A-Za-z0-9._-]+$', version)):
         status = 302
-        location = '/linux/latest/'+cmd+arg
+        location = '/generic/latest/'+cmd+arg
         cmd = ''
     if cmd == 'source':
         path = arg

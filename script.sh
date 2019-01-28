@@ -42,24 +42,9 @@ get_tags()
     sed 's/\.0$//'
 }
 
-list_tags()
-{
-    echo "$tags" |
-    tac |
-    head -n 1    
-}
-
-list_tags_h()
-{
-    echo "$tags" |
-    tac |
-    head -n 1 |
-    sed -r 's/^(v[0-9])\.([0-9]*)(.*)$/\1 \1.\2 \1.\2\3/'
-}
-
 get_latest()
 {
-    git tag | version_dir | grep -v '\-rc' | sort -V | tail -n 1
+    echo "HEAD"
 }
 
 get_type()
@@ -142,11 +127,6 @@ parse_defs()
 
 project=$(basename `dirname $LXR_REPO_DIR`)
 
-plugin=projects/$project.sh
-if [ -f "$plugin" ] ; then
-    . $plugin
-fi
-
 cd "$LXR_REPO_DIR"
 
 test $# -gt 0 || set help
@@ -162,16 +142,6 @@ denormalize()
 }
 
 case $cmd in
-    list-tags)
-        tags=`get_tags`
-
-        if [ "$opt1" = '-h' ]; then
-            list_tags_h
-        else
-            list_tags
-        fi
-        ;;
-
     get-latest)
         get_latest
         ;;
